@@ -21,7 +21,7 @@ function App() {
   return (
     <div className="App">
       <h1>What is the weather like at Mars? 🪐</h1>
-      <News></News>
+      <News title={news.title} img={news.url} text={news.explanation}></News>
       <canvas id="canvas"></canvas>
     </div>
   );
