@@ -16,7 +16,18 @@ function App() {
       });
   }, []); // Mapping useEffect function to change whenever the inputText state variable changes
 
-  console.log(news);
+  //console.log(news);
+
+  React.useEffect(() => {
+    fetch(
+      "https://api.nasa.gov/insight_weather/?api_key=dv45uJ17VkIm1YYqBJAa5HR81sqkabxl9RkNAKVb&feedtype=json&ver=1.0"
+    )
+      .then((res) => res.json())
+      .then((json) => {
+        console.log(json.validity_checks[1199].Season);
+        //json.validity_checks[1199].AT.sol_hours_with_data[0]
+      });
+  }, []);
 
   return (
     <div className="App">
