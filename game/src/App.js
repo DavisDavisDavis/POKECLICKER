@@ -5,27 +5,36 @@ import { Pokemon, Creature } from "./components/Pokemon/index.js";
 import Button from "./components/Button/index.js";
 import HealthBar from "./components/HealthBar/index.js";
 
+// Okay make API, fix the health bar updating, add fun animations and css,
+
 function App() {
   const [news, setNews] = React.useState("");
-  const [enemyHP, setEnemyHp] = React.useState("");
 
   const Piplup = new Creature("Piplup", 100, 20);
-  const Charmander = new Creature("Charmander", 50, 30);
+  const Enemy = new Creature("Enemy", 1000, 30);
+  const maxHp = Enemy.hp;
+  const [enemyHP, setEnemyHp] = React.useState(Enemy.hp);
 
-  React.useEffect(() => {
-    console.log("uwu");
-  }, [Charmander.hp]);
+  let uwu = 100;
+  // React.useEffect(() => {
+  //   console.log("uwu");
+  // }, [Enemy.hp]);
 
   function attack() {
-    console.log(Charmander.hp);
-    Piplup.attack(Charmander);
-    console.log(Charmander.hp);
+    Piplup.attack(Enemy);
+    const newHp = enemyHP - 20;
+    setEnemyHp(newHp);
+    console.log(enemyHP);
+    // Enemy.hp = e;
   }
+
+  // document.HealthBar.style.dispaly = "none";
 
   return (
     <div className="App">
       <h1>Pokemon 🌱</h1>
-      <HealthBar hp={`${Charmander.hp}%`}></HealthBar>
+      <h2>{enemyHP}</h2>
+      <HealthBar hp={(enemyHP / maxHp) * 100}></HealthBar>
       <Pokemon image="https://assets.pokemon.com/assets/cms2/img/pokedex/full/393.png"></Pokemon>
       <Button click={attack} text="Attack"></Button>
     </div>

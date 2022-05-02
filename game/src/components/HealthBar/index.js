@@ -4,7 +4,7 @@ const Health = styled.div`
   ${(props) =>
     props.hp &&
     css`
-      width: ${props.hp};
+      width: ${props.hp}%;
     `}
   height: 100%;
   background: red;
