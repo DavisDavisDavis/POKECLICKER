@@ -1,6 +1,6 @@
 import "./App.css";
 import React, { useState } from "react";
-import { Pokemon, Creature } from "./components/Pokemon/index.js";
+import { Creature } from "./components/Pokemon/index.js";
 import Button from "./components/Button/index.js";
 import HealthBar from "./components/HealthBar/index.js";
 
