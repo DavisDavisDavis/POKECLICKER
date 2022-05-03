@@ -34,7 +34,7 @@ function App() {
             })
           );
           console.log(enemies.length);
-          setEnemyName(enemies[enemyId]);
+          setEnemyName(enemies[enemyId - 1]);
           return enemies;
         });
     }
