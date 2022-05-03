@@ -36,12 +36,13 @@ function App() {
   const pet = new Creature("Piplup", 100, 20);
   const Enemy = new Creature("Charmander", 100, 30);
   const maxHp = Enemy.hp;
-  const [enemyHP, setEnemyHp] = React.useState(Enemy.hp);
+  const [enemyHp, setEnemyHp] = React.useState(Enemy.hp);
 
   const [isHurt, setIsHurt] = useState(false);
   const [isAttacking, setIsAttacking] = useState(false);
 
-  let enemyId = 1;
+  const [enemyId, setEnemyId] = useState(1);
+
   function attack() {
     //Animations
     setIsAttacking(!isAttacking);
@@ -53,13 +54,18 @@ function App() {
     //Damage
     window.setTimeout(() => {
       pet.attack(Enemy);
-      let newHp = enemyHP - 20;
+      let newHp = enemyHp - 20;
       setEnemyHp(newHp);
-      console.log(enemyHP);
+      console.log(enemyHp);
 
       if (newHp <= 0) {
         console.log("oof 🥲");
-        enemyId++;
+
+        //enemyId + 3 becuase i want to skip the evolutions 🥲 Yes i know its spegetthi
+        setEnemyId(enemyId + 3);
+        console.log(enemyId);
+
+        setEnemyHp(maxHp);
       }
     }, 500);
   }
@@ -69,8 +75,9 @@ function App() {
   return (
     <div className="App">
       <h1>Pokemon 🌱</h1>
-      <h2>{enemyHP}</h2>
-      <HealthBar hp={(enemyHP / maxHp) * 100}></HealthBar>
+      <h2>{enemyHp}</h2>
+      <h2>{`Enemy id: ${enemyId}`}</h2>
+      <HealthBar hp={(enemyHp / maxHp) * 100}></HealthBar>
       <section className="battle">
         <img
           className="background"
