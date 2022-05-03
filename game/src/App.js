@@ -23,12 +23,24 @@ function App() {
 
   let enemies = [];
   React.useEffect(() => {
-    fetch("https://pokeapi.co/api/v2/pokemon")
-      .then((res) => res.json())
-      .then((json) => {
-        setEnemyName(json.results[enemyId].name);
-        console.log(json.results[enemyId].name);
-      });
+    console.log(enemies.length);
+    if (enemies.length > 0) {
+      console.log("owo");
+      return setEnemyName(enemies[enemyId]);
+    } else {
+      fetch("https://pokeapi.co/api/v2/pokemon")
+        .then((res) => res.json())
+        .then((json) => {
+          enemies = enemies.concat(
+            json.results.map((enemy) => {
+              return enemy.name;
+            })
+          );
+          console.log(enemies.length);
+          setEnemyName(enemies[enemyId]);
+          return enemies;
+        });
+    }
   }, [enemyId]);
 
   function attack() {
@@ -44,6 +56,7 @@ function App() {
       setIsHurt(true);
       setIsAttacking(true);
 
+      //Knocked out
       if (newHp <= 0) {
         console.log("oof 🥲");
 
@@ -60,10 +73,12 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Pokemon 🌱</h1>
-      <h2>{enemyHp}</h2>
-      <h2>{enemyName}</h2>
-      <HealthBar hp={(enemyHp / maxHp) * 100}></HealthBar>
+      <h1>POKECLICKER 🌱</h1>
+      <div>
+        <h2>{enemyName}</h2>
+        <h2>{enemyHp}</h2>
+        <HealthBar hp={(enemyHp / maxHp) * 100}></HealthBar>
+      </div>
       <section className="battle">
         <img
           className="background"
@@ -85,9 +100,6 @@ function App() {
 
       <section>
         <Button click={attack} text="FIGHT"></Button>
-        <Button click={attack} text="BAG"></Button>
-        <Button click={attack} text="POKEMON"></Button>
-        <Button click={attack} text="RUN"></Button>
       </section>
     </div>
   );
