@@ -1,6 +1,5 @@
 import "./App.css";
 import React, { useState } from "react";
-import News from "./components/News/index.js";
 import { Pokemon, Creature } from "./components/Pokemon/index.js";
 import Button from "./components/Button/index.js";
 import HealthBar from "./components/HealthBar/index.js";
@@ -8,8 +7,6 @@ import HealthBar from "./components/HealthBar/index.js";
 // Okay make API, fix the health bar updating, add fun animations and css,
 
 function App() {
-  const [pokemonImage, setPokemonImage] = React.useState("");
-
   const pet = new Creature("Piplup", 100, 20);
   const Enemy = new Creature("Charmander", 100, 30);
   const maxHp = Enemy.hp;
