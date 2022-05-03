@@ -35,7 +35,7 @@ function App() {
             })
           );
           console.log(enemies.length);
-          setEnemyName(enemies[enemyId - 1]);
+          setEnemyName(enemies[enemyId - 1].toUpperCase());
           return enemies;
         });
     }
