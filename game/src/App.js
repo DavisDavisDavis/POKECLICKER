@@ -18,7 +18,18 @@ function App() {
   const [isHurt, setIsHurt] = useState(false);
   const [isAttacking, setIsAttacking] = useState(false);
 
+  const [enemyName, setEnemyName] = useState("");
   const [enemyId, setEnemyId] = useState(1);
+
+  let enemies = [];
+  React.useEffect(() => {
+    fetch("https://pokeapi.co/api/v2/pokemon")
+      .then((res) => res.json())
+      .then((json) => {
+        setEnemyName(json.results[enemyId].name);
+        console.log(json.results[enemyId].name);
+      });
+  }, [enemyId]);
 
   function attack() {
     //Animations
@@ -30,7 +41,6 @@ function App() {
       pet.attack(Enemy);
       let newHp = enemyHp - 20;
       setEnemyHp(newHp);
-      console.log(enemyHp);
       setIsHurt(true);
       setIsAttacking(true);
 
@@ -39,20 +49,20 @@ function App() {
 
         //enemyId + 3 becuase i want to skip the evolutions 🥲 Yes i know its spegetthi
         setEnemyId(enemyId + 3);
-        console.log(enemyId);
-
+        setEnemyName(enemies[enemyId]);
         setEnemyHp(maxHp);
+
+        console.log(enemyId);
+        console.log(enemyName);
       }
     }, 400);
   }
-
-  // document.HealthBar.style.dispaly = "none";
 
   return (
     <div className="App">
       <h1>Pokemon 🌱</h1>
       <h2>{enemyHp}</h2>
-      <h2>{`Enemy id: ${enemyId}`}</h2>
+      <h2>{enemyName}</h2>
       <HealthBar hp={(enemyHp / maxHp) * 100}></HealthBar>
       <section className="battle">
         <img
