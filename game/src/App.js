@@ -1,5 +1,5 @@
 import "./App.css";
-import React from "react";
+import React, { useState } from "react";
 import News from "./components/News/index.js";
 import { Pokemon, Creature } from "./components/Pokemon/index.js";
 import Button from "./components/Button/index.js";
@@ -8,24 +8,58 @@ import HealthBar from "./components/HealthBar/index.js";
 // Okay make API, fix the health bar updating, add fun animations and css,
 
 function App() {
-  const [news, setNews] = React.useState("");
+  const [pokemonImage, setPokemonImage] = React.useState("");
 
-  const Piplup = new Creature("Piplup", 100, 20);
-  const Enemy = new Creature("Enemy", 1000, 30);
+  let enemies = [];
+
+  React.useEffect(() => {
+    fetch("https://pokeapi.co/api/v2/pokemon")
+      .then((res) => res.json())
+      .then((json) => {
+        console.log(json.results[0].name);
+        enemies = enemies.concat(
+          json.results.filter((enemy) => {
+            console.log(enemy.name == "charizard");
+            return enemy.name == "charizard" ? enemy : null;
+          })
+        );
+        console.log(enemies[0].url);
+      });
+  }, []);
+
+  // setPokemonImage(json.sprites);
+  // console.log(pokemonImage.front_default);
+  // const pokemonImageFront = pokemonImage.front_default;
+  // console.log(pokemonImageFront);
+  // const pokmeonImageBack = pokemonImage.back_default;
+
+  const pet = new Creature("Piplup", 100, 20);
+  const Enemy = new Creature("Charmander", 100, 30);
   const maxHp = Enemy.hp;
   const [enemyHP, setEnemyHp] = React.useState(Enemy.hp);
 
-  let uwu = 100;
-  // React.useEffect(() => {
-  //   console.log("uwu");
-  // }, [Enemy.hp]);
+  const [isHurt, setIsHurt] = useState(false);
+  const [isAttacking, setIsAttacking] = useState(false);
 
   function attack() {
-    Piplup.attack(Enemy);
-    const newHp = enemyHP - 20;
-    setEnemyHp(newHp);
-    console.log(enemyHP);
-    // Enemy.hp = e;
+    //Animations
+    setIsAttacking(!isAttacking);
+
+    window.setTimeout(() => {
+      setIsHurt(!isHurt);
+    }, 500);
+
+    //Damage
+    window.setTimeout(() => {
+      pet.attack(Enemy);
+      let newHp = enemyHP - 20;
+      setEnemyHp(newHp);
+      console.log(enemyHP);
+
+      if (newHp <= 0) {
+        console.log("oof 🥲");
+      }
+    }, 500);
   }
 
   // document.HealthBar.style.dispaly = "none";
@@ -35,22 +69,51 @@ function App() {
       <h1>Pokemon 🌱</h1>
       <h2>{enemyHP}</h2>
       <HealthBar hp={(enemyHP / maxHp) * 100}></HealthBar>
-      <Pokemon image="https://assets.pokemon.com/assets/cms2/img/pokedex/full/393.png"></Pokemon>
-      <Button click={attack} text="Attack"></Button>
+      <section className="battle">
+        <img
+          className="background"
+          src="https://pbs.twimg.com/media/DVMT-6OXcAE2rZY.jpg"
+        />
+        <img
+          className={isHurt ? "enemy hurt" : "enemy"}
+          src={
+            "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/5.png"
+          }
+        />
+        <img
+          className={isAttacking ? "pet attack" : "pet"}
+          src={
+            "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/5.png"
+          }
+        />
+        {/* <Pokemon className="enemy" image={pokemonImageFront}></Pokemon>
+        <Pokemon className="pet" image={pokmeonImageBack}></Pokemon> */}
+      </section>
+
+      <section>
+        <Button click={attack} text="FIGHT"></Button>
+        <Button click={attack} text="BAG"></Button>
+        <Button click={attack} text="POKEMON"></Button>
+        <Button click={attack} text="RUN"></Button>
+      </section>
     </div>
   );
 }
 
 export default App;
 
-// // UseEffect will run on mount (when the component is ready) and everytime the inputText state changes
-// React.useEffect(() => {
-//   fetch(
-//     "https://api.nasa.gov/planetary/apod?api_key=dv45uJ17VkIm1YYqBJAa5HR81sqkabxl9RkNAKVb"
-//   )
-//     .then((res) => res.json())
-//     .then((json) => {
-//       setNews(json);
-//     });
-// }, []); // Mapping useEffect function to change whenever the inputText state variable changes
-// <News title={news.title} img={news.url} text={news.explanation}></News>
+// Graveyard
+/*
+// UseEffect will run on mount (when the component is ready) and everytime the inputText state changes
+const [news, setNews] = React.useState("");
+React.useEffect(() => {
+  fetch(
+    "https://api.nasa.gov/planetary/apod?api_key=dv45uJ17VkIm1YYqBJAa5HR81sqkabxl9RkNAKVb"
+  )
+    .then((res) => res.json())
+    .then((json) => {
+      setNews(json);
+    });
+}, []); // Mapping useEffect function to change whenever the inputText state variable changes
+<News title={news.title} img={news.url} text={news.explanation}></News>
+*/

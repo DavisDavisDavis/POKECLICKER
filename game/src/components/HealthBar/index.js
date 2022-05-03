@@ -8,6 +8,7 @@ const Health = styled.div`
     `}
   height: 100%;
   background: red;
+  transition: 0.5s;
 `;
 
 const HealthBarContainer = styled.div`

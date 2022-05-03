@@ -1,3 +1,4 @@
+import "./pokemon.css";
 import React from "react";
 
 export class Creature {
