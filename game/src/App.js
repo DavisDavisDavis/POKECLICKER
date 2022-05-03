@@ -31,6 +31,8 @@ function App() {
       let newHp = enemyHp - 20;
       setEnemyHp(newHp);
       console.log(enemyHp);
+      setIsHurt(true);
+      setIsAttacking(true);
 
       if (newHp <= 0) {
         console.log("oof 🥲");
@@ -41,11 +43,7 @@ function App() {
 
         setEnemyHp(maxHp);
       }
-    }, 500);
-
-    setIsHurt(true);
-    isAttacking = true;
-    isHurt = true;
+    }, 400);
   }
 
   // document.HealthBar.style.dispaly = "none";
