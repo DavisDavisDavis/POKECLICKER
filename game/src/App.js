@@ -41,6 +41,7 @@ function App() {
   const [isHurt, setIsHurt] = useState(false);
   const [isAttacking, setIsAttacking] = useState(false);
 
+  let enemyId = 1;
   function attack() {
     //Animations
     setIsAttacking(!isAttacking);
@@ -58,6 +59,7 @@ function App() {
 
       if (newHp <= 0) {
         console.log("oof 🥲");
+        enemyId++;
       }
     }, 500);
   }
@@ -76,14 +78,12 @@ function App() {
         />
         <img
           className={isHurt ? "enemy hurt" : "enemy"}
-          src={
-            "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/5.png"
-          }
+          src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${enemyId}.png`}
         />
         <img
           className={isAttacking ? "pet attack" : "pet"}
           src={
-            "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/5.png"
+            "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/7.png"
           }
         />
         {/* <Pokemon className="enemy" image={pokemonImageFront}></Pokemon>
