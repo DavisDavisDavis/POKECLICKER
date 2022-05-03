@@ -1,6 +1,6 @@
-# Spaaaaaaaaaaaaaaaaaaaaaace
+# POKECLICKER 
 
-<img src="https://media4.giphy.com/media/j5mwjor5i5PGigmPH2/giphy.gif" />
+<img src="https://media0.giphy.com/media/DorxfW5xBGSG8bVxRa/giphy.gif" />
 
-Asteroid game made in REACT and Javascript Cavas 🚀
+Fun pokemon game made with react! 💖
 
