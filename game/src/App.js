@@ -1,4 +1,5 @@
 import "./App.css";
+import song from "./assets/AccumulaTown.mp3";
 import React, { useState } from "react";
 import { Creature } from "./components/Pokemon/index.js";
 import Button from "./components/Button/index.js";
@@ -7,7 +8,7 @@ import HealthBar from "./components/HealthBar/index.js";
 // Okay make API, fix the health bar updating, add fun animations and css,
 
 function App() {
-  const pet = new Creature("Piplup", 100, 20);
+  const pet = new Creature("uwu", 100, 20);
   const Enemy = new Creature("Charmander", 100, 30);
   const maxHp = Enemy.hp;
   const [enemyHp, setEnemyHp] = React.useState(Enemy.hp);
@@ -70,6 +71,7 @@ function App() {
 
   return (
     <div className="App">
+      <audio loop src={song} autoPlay={true} />
       <h1>POKECLICKER 🌱</h1>
       <div>
         <h2>{enemyName}</h2>
