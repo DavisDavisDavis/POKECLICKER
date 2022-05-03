@@ -10,29 +10,6 @@ import HealthBar from "./components/HealthBar/index.js";
 function App() {
   const [pokemonImage, setPokemonImage] = React.useState("");
 
-  let enemies = [];
-
-  React.useEffect(() => {
-    fetch("https://pokeapi.co/api/v2/pokemon")
-      .then((res) => res.json())
-      .then((json) => {
-        console.log(json.results[0].name);
-        enemies = enemies.concat(
-          json.results.filter((enemy) => {
-            console.log(enemy.name == "charizard");
-            return enemy.name == "charizard" ? enemy : null;
-          })
-        );
-        console.log(enemies[0].url);
-      });
-  }, []);
-
-  // setPokemonImage(json.sprites);
-  // console.log(pokemonImage.front_default);
-  // const pokemonImageFront = pokemonImage.front_default;
-  // console.log(pokemonImageFront);
-  // const pokmeonImageBack = pokemonImage.back_default;
-
   const pet = new Creature("Piplup", 100, 20);
   const Enemy = new Creature("Charmander", 100, 30);
   const maxHp = Enemy.hp;
@@ -46,10 +23,7 @@ function App() {
   function attack() {
     //Animations
     setIsAttacking(!isAttacking);
-
-    window.setTimeout(() => {
-      setIsHurt(!isHurt);
-    }, 500);
+    setIsHurt(!isHurt);
 
     //Damage
     window.setTimeout(() => {
@@ -68,6 +42,10 @@ function App() {
         setEnemyHp(maxHp);
       }
     }, 500);
+
+    setIsHurt(true);
+    isAttacking = true;
+    isHurt = true;
   }
 
   // document.HealthBar.style.dispaly = "none";
@@ -111,6 +89,28 @@ export default App;
 
 // Graveyard
 /*
+
+  React.useEffect(() => {
+    fetch("https://pokeapi.co/api/v2/pokemon")
+      .then((res) => res.json())
+      .then((json) => {
+        console.log(json.results[0].name);
+        enemies = enemies.concat(
+          json.results.filter((enemy) => {
+            console.log(enemy.name == "charizard");
+            return enemy.name == "charizard" ? enemy : null;
+          })
+        );
+        console.log(enemies[0].url);
+      });
+  }, []);
+    // setPokemonImage(json.sprites);
+  // console.log(pokemonImage.front_default);
+  // const pokemonImageFront = pokemonImage.front_default;
+  // console.log(pokemonImageFront);
+  // const pokmeonImageBack = pokemonImage.back_default;
+
+
 // UseEffect will run on mount (when the component is ready) and everytime the inputText state changes
 const [news, setNews] = React.useState("");
 React.useEffect(() => {
